@@ -1,0 +1,4 @@
+.idea
+vendor
+Makefile
+.php_cs.cache

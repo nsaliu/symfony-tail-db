@@ -1,0 +1,8 @@
+parameters:
+    parallel:
+        processTimeout: 300.0
+    tipsOfTheDay: false
+    inferPrivatePropertyTypeFromConstructor: true
+    level: 8
+    paths:
+        - src
