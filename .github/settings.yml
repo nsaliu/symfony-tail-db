@@ -1,0 +1,60 @@
+repository:
+  name: symfony-tail-db
+  description: Symfony Tail DB
+  topics: symfony, doctrine, tail
+  private: true
+  default_branch: develop
+  has_issues: true
+  has_wiki: true
+  has_downloads: false
+  allow_squash_merge: true
+  allow_merge_commit: true
+  allow_rebase_merge: false
+labels:
+  - name: bug
+    color: '#ee0701'
+  - name: enhancement
+    color: '#84b6eb'
+  - name: wip
+    color: '#eeeeee'
+  - name: review-requested
+    color: '#ff7619'
+  - name: refactoring
+    color: '#fbca04'
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      required_status_checks:
+        strict: false
+        contexts: []
+      enforce_admins: true
+      restrictions:
+        apps: []
+        users:
+          - nsaliu
+        teams: []
+  - name: develop
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      required_status_checks:
+        strict: false
+        contexts: []
+      enforce_admins: true
+      restrictions:
+        apps: []
+        users:
+          - nsaliu
+        teams: []
