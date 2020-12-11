@@ -12,7 +12,7 @@ use React\Socket\ConnectionInterface;
 use React\Socket\Connector;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class Client implements ClientInterface
+final class Client implements ClientInterface
 {
     /**
      * @var SerializerInterface
@@ -24,9 +24,25 @@ class Client implements ClientInterface
      */
     private $eventLoop;
 
-    public function __construct(SerializerInterface $serializer)
-    {
+    /**
+     * @var string
+     */
+    private $host;
+
+    /**
+     * @var int
+     */
+    private $port;
+
+    public function __construct(
+        string $host,
+        int $port,
+        SerializerInterface $serializer
+    ) {
+        $this->host = $host;
+        $this->port = $port;
         $this->serializer = $serializer;
+
         $this->eventLoop = Factory::create();
     }
 
@@ -34,7 +50,13 @@ class Client implements ClientInterface
     {
         $connector = new Connector($this->eventLoop);
 
-        $connector->connect('127.0.0.1:31337')
+        $endpoint = sprintf(
+            '%s:%d',
+            $this->host,
+            $this->port
+        );
+
+        $connector->connect($endpoint)
             ->then(function (ConnectionInterface $connection) use ($databaseEventLog) {
                 $connection->write(
                     $this->serializer->serialize(

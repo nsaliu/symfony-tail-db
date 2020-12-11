@@ -6,6 +6,6 @@ namespace NSaliu\TailDb;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class TailDbBundle extends Bundle
+final class TailDbBundle extends Bundle
 {
 }

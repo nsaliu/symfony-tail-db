@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace NSaliu\TailDb\DependencyInjection;
 
+use NSaliu\TailDb\Service\Client;
+use NSaliu\TailDb\Service\Server;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class TailDbExtension extends Extension
+final class TailDbExtension extends Extension
 {
-    private const BUNDLE_ALIAS = 'tail_db';
+    public const BUNDLE_ALIAS = 'tail_db';
 
     /**
      * @param array<mixed> $configs
@@ -24,10 +26,48 @@ class TailDbExtension extends Extension
         );
 
         $loader->load('services.yaml');
+
+        $configuration = $this->processConfiguration(
+            new Configuration(),
+            $configs
+        );
+
+        if (!$this->bundleIsEnabled($configuration)) {
+            return;
+        }
+
+        $this->bindArgumentsToServices(
+            $configuration,
+            $container
+        );
     }
 
     public function getAlias(): string
     {
         return self::BUNDLE_ALIAS;
+    }
+
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    private function bundleIsEnabled(array $configuration): bool
+    {
+        return $configuration['enabled'];
+    }
+
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    private function bindArgumentsToServices(
+        array $configuration,
+        ContainerBuilder $container
+    ): void {
+        $serverDefinition = $container->getDefinition(Server::class);
+        $serverDefinition->setArgument('$host', $configuration['host']);
+        $serverDefinition->setArgument('$port', $configuration['port']);
+
+        $serverDefinition = $container->getDefinition(Client::class);
+        $serverDefinition->setArgument('$host', $configuration['host']);
+        $serverDefinition->setArgument('$port', $configuration['port']);
     }
 }

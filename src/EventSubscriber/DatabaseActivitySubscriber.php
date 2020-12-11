@@ -13,7 +13,7 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use NSaliu\TailDb\Entity\DatabaseEventLog;
 use NSaliu\TailDb\Entity\SqlEventLog;
 
-class DatabaseActivitySubscriber implements EventSubscriber
+final class DatabaseActivitySubscriber implements EventSubscriber
 {
     /**
      * @var ClientInterface
