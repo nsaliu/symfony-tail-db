@@ -9,7 +9,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class ConsoleWriter implements WriterInterface
+class ConsoleWriter implements WriterInterface
 {
     /**
      * @var OutputInterface

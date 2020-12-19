@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class TailDbCommand extends Command
 {
-    protected static $defaultName = 'doctrine:tail';
+    protected static $defaultName = 'doctrine:tail-db';
 
     /**
      * @var ServerInterface
@@ -33,6 +33,6 @@ final class TailDbCommand extends Command
             new ConsoleWriter($output)
         );
 
-        return 1;
+        return 0;
     }
 }

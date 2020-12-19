@@ -12,7 +12,7 @@ use React\Socket\ConnectionInterface;
 use React\Socket\Server as ReactPhpServer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class Server implements ServerInterface
+final class Server implements ServerInterface
 {
     /**
      * @var LoopInterface
@@ -29,14 +29,23 @@ class Server implements ServerInterface
      */
     private $serializer;
 
-    public function __construct(SerializerInterface $serializer)
-    {
+    public function __construct(
+        string $host,
+        int $port,
+        SerializerInterface $serializer
+    ) {
         $this->serializer = $serializer;
 
         $this->eventLoop = Factory::create();
 
+        $endpoint = sprintf(
+            '%s:%d',
+            $host,
+            $port
+        );
+
         $this->server = new ReactPhpServer(
-            '127.0.0.1:31337',
+            $endpoint,
             $this->eventLoop
         );
     }

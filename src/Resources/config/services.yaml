@@ -3,12 +3,18 @@ services:
     autowire: true
     autoconfigure: false
 
-  NSaliu\TailDb\Service\Client: ~
+  NSaliu\TailDb\Service\Client:
+    arguments:
+      $host: ~
+      $port: ~
 
   NSaliu\TailDb\EventSubscriber\ClientInterface:
     alias: NSaliu\TailDb\Service\Client
 
-  NSaliu\TailDb\Service\Server: ~
+  NSaliu\TailDb\Service\Server:
+    arguments:
+      $host: ~
+      $port: ~
 
   NSaliu\TailDb\Command\ServerInterface:
     alias: NSaliu\TailDb\Service\Server

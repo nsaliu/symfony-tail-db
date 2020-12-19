@@ -1,4 +1,6 @@
 parameters:
+    ignoreErrors:
+        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\).#'
     parallel:
         processTimeout: 300.0
     tipsOfTheDay: false
